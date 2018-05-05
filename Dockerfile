@@ -124,6 +124,7 @@ ARG NGINX_BUILD_CONFIG="\
         --with-mail_ssl_module \
         --with-compat \
         --with-file-aio \
+        --with-http_autoindex_module \
         --with-http_v2_module \
     "
 
@@ -160,10 +161,10 @@ RUN git clone -b ${NGX_PAGESPEED_TAG} \
 
 RUN wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
          https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz.asc && \
-    (gpg --keyserver ha.pool.sks-keyservers.net --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
-     gpg --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
-     gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --keyserver-options timeout=10 --recv-keys $NGINX_PGPKEY} ) && \
-    gpg --trusted-key ${NGINX_PGPKEY} --verify nginx-${NGINX_VERSION}.tar.gz.asc
+         (gpg --keyserver ha.pool.sks-keyservers.net --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
+         gpg --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
+         gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --keyserver-options timeout=10 --recv-keys $NGINX_PGPKEY} ) && \
+         gpg --trusted-key ${NGINX_PGPKEY} --verify nginx-${NGINX_VERSION}.tar.gz.asc
 
 COPY --from=pagespeed /usr/src/ngxpagespeed /usr/src/ngxpagespeed/
 
@@ -214,7 +215,8 @@ RUN apk --no-cache upgrade && \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
             | xargs apk add --no-cache \
     && \
-    apk add --no-cache tzdata
+    apk add --no-cache tzdata && \
+    cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN addgroup -S nginx && \
     adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx && \
@@ -223,7 +225,7 @@ RUN addgroup -S nginx && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
-EXPOSE 80
+EXPOSE 80 443
 
 STOPSIGNAL SIGTERM
 
