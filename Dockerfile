@@ -189,6 +189,7 @@ RUN rm -rf /etc/nginx/html/ && \
           /usr/lib/nginx/modules/*.so \
     ;
 
+COPY ./conf.d /etc/nginx/conf.d
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 COPY pagespeed.png /usr/share/nginx/html/
