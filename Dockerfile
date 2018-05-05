@@ -124,7 +124,6 @@ ARG NGINX_BUILD_CONFIG="\
         --with-mail_ssl_module \
         --with-compat \
         --with-file-aio \
-        --with-http_autoindex_module \
         --with-http_v2_module \
     "
 
