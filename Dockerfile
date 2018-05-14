@@ -59,9 +59,9 @@ RUN build/gyp_chromium --depth=. \
 
 RUN mkdir -p /usr/src/ngxpagespeed/psol/lib/Release/linux/x64 && \
     mkdir -p /usr/src/ngxpagespeed/psol/include/out/Release && \
-    mv out/Release/obj /usr/src/ngxpagespeed/psol/include/out/Release/ && \
-    mv pagespeed/automatic/pagespeed_automatic.a /usr/src/ngxpagespeed/psol/lib/Release/linux/x64/ && \
-    mv net \
+    cp -R out/Release/obj /usr/src/ngxpagespeed/psol/include/out/Release/ && \
+    cp -R pagespeed/automatic/pagespeed_automatic.a /usr/src/ngxpagespeed/psol/lib/Release/linux/x64/ && \
+    cp -R net \
        pagespeed \
        testing \
        third_party \
@@ -160,10 +160,10 @@ RUN git clone -b ${NGX_PAGESPEED_TAG} \
 
 RUN wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
          https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz.asc && \
-    (gpg --keyserver ha.pool.sks-keyservers.net --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
-     gpg --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
-     gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --keyserver-options timeout=10 --recv-keys $NGINX_PGPKEY} ) && \
-    gpg --trusted-key ${NGINX_PGPKEY} --verify nginx-${NGINX_VERSION}.tar.gz.asc
+         (gpg --keyserver ha.pool.sks-keyservers.net --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
+         gpg --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=10 --recv-keys ${NGINX_PGPKEY} || \
+         gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --keyserver-options timeout=10 --recv-keys $NGINX_PGPKEY} ) && \
+         gpg --trusted-key ${NGINX_PGPKEY} --verify nginx-${NGINX_VERSION}.tar.gz.asc
 
 COPY --from=pagespeed /usr/src/ngxpagespeed /usr/src/ngxpagespeed/
 
