@@ -190,6 +190,7 @@ RUN rm -rf /etc/nginx/html/ && \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/nginx.vh.default.conf /etc/nginx/conf.d/default.conf
+COPY conf.d/pagespeed.conf /etc/nginx/conf.d/pagespeed.conf
 COPY pagespeed.png /usr/share/nginx/html/
 
 
@@ -220,6 +221,7 @@ RUN addgroup -S nginx && \
     adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx && \
     install -g nginx -o nginx -d /var/cache/ngx_pagespeed && \
     mkdir -p /var/log/nginx && \
+    cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
