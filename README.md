@@ -19,10 +19,10 @@ This image should be a 100% compatible drop in replacement for the official ngin
     $ docker build -t <image_tag> -f <dockerfile_path> .
   Refer [this](https://docs.docker.com/engine/reference/commandline/build/) for additional options.
 
-### Run this container as an independent service(80):
+### Run this container as an independent service(80 or 443):
     $ docker run -d -p 80:80 <image_tag>
-### Run this container as an independent service(443): 
-    $ docker run -d -p 443:443 <image_tag>
+      or
+    $ docker run -d -p 443:443 <image_tag>  
   Refer [this](https://docs.docker.com/engine/reference/run/) for additional options.
 ### Run this container as an independent service with docker-compose.
     $ git clone https://github.com/blueapple188/ngx-pagespeed-alpine.git
