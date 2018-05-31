@@ -16,7 +16,7 @@ This image should be a 100% compatible drop in replacement for the official ngin
 
 ## Using the Dockerfile
 ### Use docker build command to build an image from dockerfile:
-      $ docker build -t <image_tag> -f <dockerfile_path> .
+    $ docker build -t <image_tag> -f <dockerfile_path> .
   Refer [this](https://docs.docker.com/engine/reference/commandline/build/) for additional options.
 
 ### Run this container as an independent service(80):
@@ -24,6 +24,11 @@ This image should be a 100% compatible drop in replacement for the official ngin
 ### Run this container as an independent service(443): 
     $ docker run -d -p 443:443 <image_tag>
   Refer [this](https://docs.docker.com/engine/reference/run/) for additional options.
+### Run this container as an independent service with docker-compose.
+    $ git clone https://github.com/blueapple188/ngx-pagespeed-alpine.git
+    $ cd ngx-pagespeed-alpine && mkdir html
+    $ docker-compose up -d
+   Refer [this](https://docs.docker.com/compose/reference/run/) for additional options.
 
 ## TODO
 - Be 100% compatible with nginx 1.14.0 image on dockerhub when released, for now 100% compatible with 1.12.2 image
