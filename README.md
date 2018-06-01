@@ -26,7 +26,6 @@ This image should be a 100% compatible drop in replacement for the official ngin
   Refer [this](https://docs.docker.com/engine/reference/run/) for additional options.
 ### Run this container as an independent service with docker-compose.
     $ git clone https://github.com/blueapple188/ngx-pagespeed-alpine.git
-    $ cd ngx-pagespeed-alpine && mkdir html
     $ docker-compose up -d
    Refer [this](https://docs.docker.com/compose/reference/run/) for additional options.
 
