@@ -2,7 +2,7 @@
 ngx_pagespeed Dockerfile for Alpine, based on wernight/docker-alpine-nginx-pagespeed
 
 ## Docker base
-This image is based on Alpine Linux version 3.7
+This image is based on [Alpine](https://www.alpinelinux.org/) version latest
 
 ## Pagespeed Components:
 ### mod-pagespeed
